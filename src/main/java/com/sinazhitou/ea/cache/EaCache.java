@@ -16,9 +16,9 @@ public class EaCache {
     return null;
   }
 
-  @CachePut(value = "ea")
-  public String putMagic(int magic) {
-    return "100";
+  @CachePut(value = "ea",key = "#magic")
+  public String putMagic(int magic,String value) {
+    return value;
   }
 
 

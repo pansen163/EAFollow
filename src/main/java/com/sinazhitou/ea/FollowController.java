@@ -28,10 +28,12 @@ public class FollowController {
   @ResponseBody
   public String test() throws InterruptedException {
     System.out.println("get cache:"+eaCache.getMagic(111));
-    System.out.println("put cache:"+eaCache.putMagic(111));
-    System.out.println("get cache:"+eaCache.getMagic(111));
+    System.out.println("put cache:"+eaCache.putMagic(111,"aaa"));
     System.out.println("get cache:"+eaCache.getMagic(111));
     System.out.println("get cache:"+eaCache.getMagic(222));
+    System.out.println("put cache:"+eaCache.putMagic(111,"bbb"));
+    System.out.println("get cache:"+eaCache.getMagic(111));
+
     Thread.sleep(5000);
     System.out.println("sleep 5 get cache:"+eaCache.getMagic(111));
     Thread.sleep(10000);
