@@ -3,7 +3,7 @@ package com.sinazhitou.ea.model;
 public class EALevelsVo {
 
     public int magic;//魔术码
-    public int symbol;//品种
+    public String symbol;//品种
     public int tradeType;//0:buy 1:sell
     public int levels;//层数
 
@@ -15,11 +15,11 @@ public class EALevelsVo {
         this.magic = magic;
     }
 
-    public int getSymbol() {
+    public String getSymbol() {
         return symbol;
     }
 
-    public void setSymbol(int symbol) {
+    public void setSymbol(String symbol) {
         this.symbol = symbol;
     }
 
