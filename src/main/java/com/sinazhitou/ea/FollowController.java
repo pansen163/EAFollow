@@ -31,8 +31,11 @@ public class FollowController {
     System.out.println("put cache:"+eaCache.putMagic(111));
     System.out.println("get cache:"+eaCache.getMagic(111));
     System.out.println("get cache:"+eaCache.getMagic(111));
-    Thread.sleep(15000);
-    System.out.println("get cache:"+eaCache.getMagic(111));
+    System.out.println("get cache:"+eaCache.getMagic(222));
+    Thread.sleep(5000);
+    System.out.println("sleep 5 get cache:"+eaCache.getMagic(111));
+    Thread.sleep(10000);
+    System.out.println("sleep 15 get cache:"+eaCache.getMagic(111));
     return "test";
   }
 }

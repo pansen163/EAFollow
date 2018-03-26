@@ -10,12 +10,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class EaCache {
 
-  @Cacheable(cacheNames = "ea", key = "#magic")
+  //@Cacheable(value = "user", key = "'user'.concat(#id.toString())")
+  @Cacheable(value = "ea", key = "#magic")
   public String getMagic(int magic) {
     return null;
   }
 
-  @CachePut(cacheNames = "ea")
+  @CachePut(value = "ea")
   public String putMagic(int magic) {
     return "100";
   }
