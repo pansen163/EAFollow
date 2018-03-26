@@ -27,14 +27,8 @@ public class GuavaConfig {
    * 定义cache名称、超时时长秒、最大个数 每个cache缺省3600秒过期，最大个数1000
    */
   public enum Caches {
-    ea(10, 100);
-
-    Caches() {
-    }
-
-    Caches(int ttl) {
-      this.ttl = ttl;
-    }
+    ea(10, 100),
+    EaLevel(120,100);
 
     Caches(int ttl, int maxSize) {
       this.ttl = ttl;
