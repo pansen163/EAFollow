@@ -38,12 +38,19 @@ public class FollowController {
 
   @RequestMapping(value = "/getEalevel", method = RequestMethod.POST)
   @ResponseBody
-  public int getEalevel(@RequestParam("symbol") String symbol, @RequestParam("action") int action) {
-    logger.info("getEalevel symbol:{} action:{}", symbol, action);
+  public String getEalevel(@RequestParam("symbol") String symbol,
+                           @RequestParam("magic") int magic) {
+    logger.info("getEalevel symbol:{} magic:{}", symbol, magic);
     EALevelsVo vo = new EALevelsVo();
     vo.setSymbol(symbol);
-    vo.setTradeType(action);
-    int levels = eaCache.getEaLevel(vo);
-    return levels;
+    vo.setMagic(magic);
+    EALevelsVo cache = eaCache.getEaLevel(vo);
+    String str = "";
+    if (cache != null) {
+      str =
+          cache.getMagic() + "|" + cache.getSymbol() + "|" + cache.getTradeType() + "|" + cache
+              .getLevels();
+    }
+    return str;
   }
 }

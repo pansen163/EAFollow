@@ -22,15 +22,15 @@ public class EaCache {
     return value;
   }
 
-  @Cacheable(value = "EaLevel", key = "#p0.symbol+':'+#p0.tradeType")
-  public Integer getEaLevel(EALevelsVo vo) {
-    //获取不到返回-1
-    return -1;
+  @Cacheable(value = "EaLevel", key = "#p0.symbol+':'+#p0.magic")
+  public EALevelsVo getEaLevel(EALevelsVo vo) {
+    //获取不到返回null
+    return null;
   }
 
-  @CachePut(value = "EaLevel", key = "#p0.symbol+':'+#p0.tradeType")
-  public Integer putEaLevel(EALevelsVo vo) {
-    return vo.levels;
+  @CachePut(value = "EaLevel", key = "#p0.symbol+':'+#p0.magic")
+  public EALevelsVo putEaLevel(EALevelsVo vo) {
+    return vo;
   }
 
 }

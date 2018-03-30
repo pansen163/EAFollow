@@ -11,7 +11,10 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class EAStatisticsService {
@@ -22,32 +25,46 @@ public class EAStatisticsService {
 
   @SuppressWarnings("unchecked")
   public List<EALevelsVo> getPiPiXiaEaLevels() {
-    List<EALevelsVo> vos = new ArrayList();
-    String sql = "SELECT mz.Symbol, mz.Action, MAX(mz.levels) as Levels\n"
+    Map<String, EALevelsVo> vosMap = new HashMap<String, EALevelsVo>();
+
+    String sql = "SELECT mz.ExpertID, mz.Symbol, mz.Action, MAX(mz.levels) AS Levels\n"
                  + "FROM (\n"
-                 + "\tSELECT mu.`Login`, mp.`Symbol`, mp.`Action`, COUNT(*) AS levels\n"
+                 + "\tSELECT mu.`Login`, mp.`ExpertID`, mp.`Symbol`, mp.`Action`\n"
+                 + "\t\t, COUNT(1) AS levels\n"
                  + "\tFROM mt5_users mu, mt5_positions mp\n"
                  + "\tWHERE mu.`Login` = mp.`Login`\n"
                  + "\t\tAND mu.`Group` LIKE 'real%'\n"
-                 + "\t\tAND mp.`ExpertID` IN (201711666, 201711999)\n"
-                 + "\tGROUP BY mu.`Login`, mp.`Symbol`, mp.`Action`\n"
+                 + "\tGROUP BY mu.`Login`, mp.`ExpertID`, mp.`Symbol`, mp.`Action`\n"
                  + ") mz\n"
-                 + "GROUP BY mz.Symbol, mz.Action";
-    vos = (List) jdbcTemplate.query(sql, new Object[]{}, new ResultSetExtractor() {
+                 + "GROUP BY mz.ExpertID, mz.Symbol, mz.Action";
+    vosMap = (Map) jdbcTemplate.query(sql, new Object[]{}, new ResultSetExtractor() {
+      public Map<String, EALevelsVo> extractData(ResultSet rs)
+          throws SQLException, DataAccessException {
 
-      public List<EALevelsVo> extractData(ResultSet rs) throws SQLException, DataAccessException {
-        List<EALevelsVo> list = new ArrayList();
+        Map<String, EALevelsVo> eaLevelsVoMap = new HashMap<String, EALevelsVo>();
+
         while (rs.next()) {
           EALevelsVo vo = new EALevelsVo();
+          vo.setMagic(Integer.parseInt(rs.getString("ExpertID")));
           vo.setSymbol(rs.getString("Symbol"));
           vo.setTradeType(rs.getInt("Action"));
           vo.setLevels(rs.getInt("Levels"));
-          list.add(vo);
+          String key = vo.getMagic() + ":" + vo.getSymbol();
+          if (eaLevelsVoMap.get(key) == null) {
+            eaLevelsVoMap.put(key, vo);
+          } else {
+            EALevelsVo voTemp = eaLevelsVoMap.get(key);
+            if (vo.getLevels() > voTemp.getLevels()) {
+              eaLevelsVoMap.put(key, vo);
+            }
+          }
         }
-        return list;
+        return eaLevelsVoMap;
       }
     });
-    return vos;
+
+    List<EALevelsVo> list = new ArrayList(vosMap.values());
+    return list;
   }
 
 
