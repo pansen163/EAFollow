@@ -28,7 +28,7 @@ public class GuavaConfig {
    */
   public enum Caches {
     ea(10, 100),
-    EaLevel(120,100);
+    EaLevel(180,100);
 
     Caches(int ttl, int maxSize) {
       this.ttl = ttl;

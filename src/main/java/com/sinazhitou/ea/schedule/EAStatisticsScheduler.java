@@ -26,7 +26,7 @@ public class EAStatisticsScheduler {
   @Autowired
   EaCache eaCache;
 
-  @Scheduled(fixedDelay = 60000) // 每60秒执行一次
+  @Scheduled(fixedDelay = 120000) // 每60秒执行一次
   public void putEaLevelsToCache() {
     logger.info("putEaLevelsToCache begin");
     List<EALevelsVo> eaLevelsVos = eaStatisticsService.getPiPiXiaEaLevels();
