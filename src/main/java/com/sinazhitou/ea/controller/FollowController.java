@@ -53,4 +53,18 @@ public class FollowController {
     }
     return str;
   }
+
+  @RequestMapping(value = "/putLamaxInfo", method = RequestMethod.POST)
+  @ResponseBody
+  public boolean putJinHuaLmaxInfo(@RequestParam("login") Integer login,
+                                   @RequestParam("magics") Integer magics,
+                                   @RequestParam("symbol") String symbol,
+                                   @RequestParam("type") Integer type,
+                                   @RequestParam("levels") Integer levels) {
+    logger.info("putJinHuaLmaxInfo login:{} magics:{} symbol:{} type:{} levels:{}", login, magics,
+                symbol, type, levels);
+
+    return false;
+  }
+
 }
