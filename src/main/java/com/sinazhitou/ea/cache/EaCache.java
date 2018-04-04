@@ -41,8 +41,8 @@ public class EaCache {
     return vo;
   }
 
-  @Cacheable(value = "EaRiskConfig", key = "EaRiskConfig")
-  public List<EaRiskConfig> getEaRiskConfig() {
+  @Cacheable(value = "EaRiskConfig", key = "#key")
+  public List<EaRiskConfig> getEaRiskConfig(String key) {
     List<EaRiskConfig> configs = eaStatisticsService.getEAFollowConfig();
     if (configs != null && configs.size() > 0) {
       return configs;

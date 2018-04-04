@@ -45,16 +45,15 @@ public class FollowService {
    * @return 越级层数 -1为数据没有匹配上
    */
   public int getOverrideLevels(EALevelsVo eaLevelsVo, Integer requestiskLevel) {
-    List<EaRiskConfig> eaRiskConfigList = eaCache.getEaRiskConfig();
+    List<EaRiskConfig> eaRiskConfigList = eaCache.getEaRiskConfig("EaRiskConfig");
     int overrideLevels = -1;
+    //匹配出风险等级,并且比要求的风险等级要小,则获取越级层数
+    //例如:缓存匹配的为高风险,请求为中风险,则拒绝。如果缓存匹配为低风险,请求为高风险,则计算越级层数
     for (EaRiskConfig eaRiskConfig : eaRiskConfigList) {
-      //匹配出风险等级,并且比要求的风险等级要小,则获取越级层数
-      //例如:缓存匹配的为高风险,请求为中风险,则拒绝。如果缓存匹配为低风险,请求为高风险,则计算越级层数
-      if (eaLevelsVo.getMagic() == eaLevelsVo.getMagic() && eaLevelsVo.getLevels() >= eaRiskConfig
-          .getStrartNum()
-          && eaLevelsVo.getLevels() < eaRiskConfig.getEndNum() && requestiskLevel >= eaRiskConfig
-          .getRiskLeavel()) {
-        overrideLevels = eaLevelsVo.getLevels() - eaRiskConfig.getStrartNum();
+      if(eaLevelsVo.getMagic() == eaRiskConfig.getMagic() && requestiskLevel==eaRiskConfig.getRiskLeavel()){
+        if(eaLevelsVo.getLevels()>=eaRiskConfig.getStrartNum()){
+          overrideLevels = eaLevelsVo.getLevels() - eaRiskConfig.getStrartNum();
+        }
       }
     }
     return overrideLevels;
