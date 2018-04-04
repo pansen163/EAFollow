@@ -28,7 +28,8 @@ public class GuavaConfig {
    */
   public enum Caches {
     ea(10, 100),
-    EaLevel(180,100);
+    EaLevel(180,100),//EA最高层数
+    EaRiskConfig(180,100);//EA开仓条件
 
     Caches(int ttl, int maxSize) {
       this.ttl = ttl;
