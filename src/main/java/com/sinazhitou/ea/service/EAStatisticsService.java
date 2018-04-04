@@ -4,6 +4,7 @@ import com.sinazhitou.ea.model.EALevelsVo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
@@ -20,8 +21,11 @@ import java.util.Map;
 public class EAStatisticsService {
 
   @Autowired
-  private JdbcTemplate jdbcTemplate;
+  private JdbcOperations jdbcTemplateMt5;
 
+
+  //@Autowired
+  //private JdbcOperations jdbcTemplateZtRisk;
 
   @SuppressWarnings("unchecked")
   public List<EALevelsVo> getPiPiXiaEaLevels() {
@@ -37,7 +41,7 @@ public class EAStatisticsService {
                  + "\tGROUP BY mu.`Login`, mp.`ExpertID`, mp.`Symbol`, mp.`Action`\n"
                  + ") mz\n"
                  + "GROUP BY mz.ExpertID, mz.Symbol, mz.Action";
-    vosMap = (Map) jdbcTemplate.query(sql, new Object[]{}, new ResultSetExtractor() {
+    vosMap = (Map) jdbcTemplateMt5.query(sql, new Object[]{}, new ResultSetExtractor() {
       public Map<String, EALevelsVo> extractData(ResultSet rs)
           throws SQLException, DataAccessException {
 
