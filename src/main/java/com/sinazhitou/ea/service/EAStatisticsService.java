@@ -76,7 +76,7 @@ public class EAStatisticsService {
   @SuppressWarnings("unchecked")
   public List<EaRiskConfig> getEAFollowConfig() {
     logger.info("getEAFollowConfig begin");
-    String sql = "select id,magic,risk_leavel,strart_num,end_num,c_time,m_time from ea_risk_config";
+    String sql = "select id,magic,symbol,risk_leavel,strart_num,end_num,c_time,m_time from ea_risk_config";
     List<EaRiskConfig>
         configs =
         (List<EaRiskConfig>) jdbcTemplateZtRisk
@@ -89,6 +89,7 @@ public class EAStatisticsService {
                   EaRiskConfig eaRiskConfig = new EaRiskConfig();
                   eaRiskConfig.setId(rs.getInt("id"));
                   eaRiskConfig.setMagic(rs.getInt("magic"));
+                  eaRiskConfig.setSymbol(rs.getString("symbol"));
                   eaRiskConfig.setRiskLeavel(rs.getInt("risk_leavel"));
                   eaRiskConfig.setStrartNum(rs.getInt("strart_num"));
                   eaRiskConfig.setEndNum(rs.getInt("end_num"));

@@ -50,7 +50,8 @@ public class FollowService {
     //匹配出风险等级,并且比要求的风险等级要小,则获取越级层数
     //例如:缓存匹配的为高风险,请求为中风险,则拒绝。如果缓存匹配为低风险,请求为高风险,则计算越级层数
     for (EaRiskConfig eaRiskConfig : eaRiskConfigList) {
-      if(eaLevelsVo.getMagic() == eaRiskConfig.getMagic() && requestiskLevel==eaRiskConfig.getRiskLeavel()){
+      if (eaLevelsVo.getMagic() == eaRiskConfig.getMagic() && eaLevelsVo.getSymbol()
+          .equals(eaRiskConfig.getSymbol()) && requestiskLevel == eaRiskConfig.getRiskLeavel()) {
         if(eaLevelsVo.getLevels()>=eaRiskConfig.getStrartNum()){
           overrideLevels = eaLevelsVo.getLevels() - eaRiskConfig.getStrartNum();
         }

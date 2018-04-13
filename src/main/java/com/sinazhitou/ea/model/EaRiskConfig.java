@@ -11,6 +11,8 @@ public class EaRiskConfig {
 
   public int magic;
 
+  public String symbol;
+
   public int riskLeavel;
 
   public int strartNum;
@@ -75,5 +77,13 @@ public class EaRiskConfig {
 
   public void setmTime(Date mTime) {
     this.mTime = mTime;
+  }
+
+  public String getSymbol() {
+    return symbol;
+  }
+
+  public void setSymbol(String symbol) {
+    this.symbol = symbol;
   }
 }
