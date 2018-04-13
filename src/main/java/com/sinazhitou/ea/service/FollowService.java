@@ -1,4 +1,4 @@
-package com.sinazhitou.ea.schedule;
+package com.sinazhitou.ea.service;
 
 import com.sinazhitou.ea.cache.EaCache;
 import com.sinazhitou.ea.model.EALevelsVo;
