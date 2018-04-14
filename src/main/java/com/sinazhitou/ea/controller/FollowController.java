@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 /**
  * Created by pansen on 2018/3/26.
  */
@@ -78,5 +82,25 @@ public class FollowController {
     }
     return "0";
   }
+
+  @RequestMapping(value = "/getAllOpenInfo", method = RequestMethod.GET)
+  public String getAllOpenInfo(Model m) {
+    List<EALevelsVo> eaLevelsVos = eaStatisticsService.getPiPiXiaEaLevels();
+    Collections.sort(eaLevelsVos,new Comparator<EALevelsVo>() {
+      @Override
+      public int compare(EALevelsVo o1, EALevelsVo o2) {
+        if(o1.getMagic()>o2.getMagic()){
+          return 1;
+        }
+        if(o1.getMagic()<o2.getMagic()){
+          return -1;
+        }
+        return 0;
+      }
+    });
+    m.addAttribute("eaLevelsVos", eaLevelsVos);
+    return "ppx";
+  }
+
 
 }
